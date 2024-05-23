@@ -39,8 +39,15 @@ const Singup = () => {
         setAvatar();
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+        if (error.response && error.response.data && error.response.data.message) {
+            toast.error(error.response.data.message);
+        } else {
+            // Handle cases where error.response or its properties are undefined
+            console.error('Unexpected error structure', error);
+            toast.error('An unexpected error occurred. Please try again later.');
+        }
+    });
+    
   };
 
   return (
